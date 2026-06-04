@@ -84,7 +84,7 @@ class FallbackManager:
                 threshold=initial_threshold,
                 detector_backend='opencv',
                 processing_time_ms=processing_time,
-                success=result['verified'],
+                success=bool(result['verified']),
                 confidence=confidence,
                 distance=result['distance']
             )
@@ -170,7 +170,7 @@ class FallbackManager:
                     threshold=threshold,
                     detector_backend=detector,
                     processing_time_ms=processing_time,
-                    success=result['verified'],
+                    success=bool(result['verified']),
                     confidence=confidence,
                     distance=result['distance']
                 )
@@ -238,7 +238,7 @@ class FallbackManager:
                 threshold=threshold,
                 detector_backend='retinaface_enhanced',
                 processing_time_ms=processing_time,
-                success=result['verified'],
+                success=bool(result['verified']),
                 confidence=confidence,
                 distance=result['distance']
             )
@@ -337,7 +337,7 @@ class FallbackManager:
                 "confidence_score": round(confidence, 1),
                 "confidence_percentage": f"{round(confidence, 1)}%",
                 "distance": round(deepface_result['distance'], 3) if deepface_result else 0,
-                "is_match": deepface_result['verified'] if deepface_result else False,
+                "is_match": bool(deepface_result['verified']) if deepface_result else False,
                 "threshold_used": threshold,
                 "model_used": "Facenet",
                 "fallback_used": len(fallback_attempts) > 1,

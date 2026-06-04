@@ -18,7 +18,7 @@ import time
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=['http://localhost:3000'])
+CORS(app, origins="*")
 
 # Initialize utility classes
 image_handler = ImageHandler()
@@ -305,15 +305,15 @@ def match_faces():
             })
             
             # Add quality-based guidance if needed
-            if face_quality_issues and fallback_result['result']['result']['decision'] != 'MATCH':
+            if face_quality_issues and fallback_result['result']['decision'] != 'MATCH':
                 quality_error_types = guidance_generator.analyze_quality_issues(face_quality_issues)
                 if quality_error_types:
                     quality_guidance = guidance_generator.get_bilingual_guidance(quality_error_types[0])
                     fallback_result['guidance_messages'].update(quality_guidance)
             
             # Step 8: Check if manual review case should be created
-            decision = fallback_result['result']['result']['decision']
-            fallback_used = fallback_result['result']['result'].get('fallback_used', False)
+            decision = fallback_result['result']['decision']
+            fallback_used = fallback_result['result'].get('fallback_used', False)
             
             if decision == 'POSSIBLE_MATCH' or fallback_used:
                 # Create manual review case for edge cases
