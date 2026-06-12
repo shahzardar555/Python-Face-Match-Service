@@ -883,8 +883,8 @@ def batch_match():
 
 
 if __name__ == '__main__':
-    port = int(os.getenv('FLASK_PORT', 5000))
-    debug = os.getenv('FLASK_DEBUG', 'True').lower() == 'true'
+    port = int(os.getenv('PORT', os.getenv('FLASK_PORT', 5000)))
+    debug = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
     
     print(f"Starting Muawin Face Matching Service on port {port}")
     print(f"Debug mode: {debug}")
